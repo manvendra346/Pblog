@@ -1,0 +1,18 @@
+<div class="row p-3">
+    <div class="col">
+        <a href="{{url_for('profile',id=result.id)}}" class="text-decoration-none h5">{{ result.username }}</a>
+    </div>
+    <div class="text-end col ">
+        {% if result not in current_user.following and result != current_user%}
+        <button class="btn btn-secondary " id="{{ result.id }}" type="button"
+            onclick="var id = this.id;follow(id)">follow</button>
+        {% elif result == current_user %}
+        <button class="bg-dark border-0"><a class="btn btn-secondary text-decoration-none "
+                href="{{url_for('profile',id=current_user.id)}}">my
+                profile</a></button>
+        {% else %}
+        <button class="btn btn-secondary " id="{{ result.id }}" type="button"
+            onclick="var id = this.id;unfollow(id)">unfollow</button>
+        {% endif %}
+    </div>
+</div>

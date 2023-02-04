@@ -1,0 +1,22 @@
+{% extends 'base_login.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+<div class="container-fluid my-auto col-md-4 card text-bg-dark">
+    <form method="post" class="align-items-center  card-body ">
+        <div class="mb-3 mt-3 form-floating">
+            <input name="username" class="form-control text-bg-dark" type="text" placeholder="Usename">
+            <label for="username" class="form-label">Username</label>
+        </div>
+        <div class="mb-3 form-floating">
+            <input name="password" class="form-control text-bg-dark " type="password" placeholder="Password">
+            <label for="password" class="form-label">Password</label>
+        </div>
+        <div class="mb-3 form-floating">
+            <input name="confirm" class="form-control text-bg-dark" type="password" placeholder="Confirm Password">
+            <label for="confirm" class="form-label">Confirm Password</label>
+        </div>
+        <button class="btn btn-info" type="submit">Create Account</button>
+
+    </form>
+</div>
+{% endblock %}

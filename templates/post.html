@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title%}Add Post{% endblock %}
+{% block content %}
+<div class="container-fluid my-auto col-md-4 card text-bg-dark">
+    <h1 class="mx-auto">Add a Blog</h1>
+    <div class="align-items-center  card-body">
+        <div id="preview" class="mx-auto"></div>
+        <form method="POST" enctype="multipart/form-data" class="">
+            <p>
+                <label for="image" class="form-label">Image Upload</label>
+                <input id="image" type="file" accept="image/*" class="form-control text-bg-dark " name="image" onchange="getImageData()">
+            </p>
+            <p>
+                <label for="name" class="form-label">Title</label>
+                <input type="text" class="form-control text-bg-dark" name="title">
+            </p>
+            <p>
+                <label for="caption" class="form-label">Caption</label>
+                <input type="textarea" class="form-control text-bg-dark" name="caption">
+            </p>
+            <button class="btn btn-info" type="submit">Add Blog</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

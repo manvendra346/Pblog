@@ -1,0 +1,97 @@
+<div class="card text-bg-dark mx-auto my-2" style="width: 40rem;">
+    <img src="{{ url_for('getfile', filename=post.image_url) }}" class="img-fluid card-img-top" alt="Blog Image">
+    <div class="card-body">
+        <div class="row ">
+            <p class="col"></p>
+            <h5 class="card-title col text-center">{{ post.title }}</h5>
+            <p class="col text-end">{{post.time.strftime("%d/%b/%Y")}}</p>
+        </div>
+
+        <hr>
+        <p class="card-text">{{ post.caption }}</p>
+        {% if post.user_id != current_user.id %}
+        <small><a href="{{url_for('profile', id=post.user.id)}}"
+                class="text-decoration-none">{{post.user.username}}</a></small>
+        {% elif post.user_id == current_user.id %}
+        <div class="dropdown ">
+            <button class="btn btn-secondary dropdown-toggle card-footer form-control" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                manage post
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item " href="{{url_for('editpost',id=post.pid)}}">Edit Post</a></li>
+                <li><a class="dropdown-item" href="{{url_for('deletepost', id=post.pid)}}">Delete Post</a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col">
+                {% if post in current_user.liked %}
+                <a href="{{url_for('removelike', id=post.pid)}}" class="text-decoration-none">
+                    <i class="bi bi-star-fill" style="color:gold;"></i>
+                </a>{{post.likes|length}}
+                {% else %}
+                <a href="{{url_for('addlike', id=post.pid)}}" class="text-decoration-none">
+                    <i class="bi bi-star" style="color:whitesmoke;"></i>
+                </a>{{post.likes|length}}
+                {% endif %}
+            </div>
+            <div class="col">
+                {{post.comments|length}}<i class="bi bi-chat-left-text-fill m-1" data-bs-toggle="collapse"
+                    href="#{{post.pid}}" role="button" aria-expanded="false" aria-controls="{{post.pid}}"></i>
+            </div>
+        </div>
+        <div class="row collapse m-3" id="{{post.pid}}">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#a{{post.pid}}">
+                Add Comment
+            </button>
+        </div>
+
+        {% for comment in post.comments %}
+        <div class="card card-body m-2 collapse" id="{{post.pid}}" style="background-color: rgb(41, 47, 57);">
+            <div class="col">
+                <div class="row mb-3">
+                    <div class="col-5 h4"><a href="{{url_for('profile', id=comment.uid)}}"
+                            class="text-decoration-none "><small>{{comment.user.username}}</small></a>
+                    </div>
+                    <div class="col ">{{comment.comment}}</div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <small class="text-secondary mt-2">{{comment.time}}</small>
+                    </div>
+                    {% if current_user == comment.user or current_user == post.user %}
+                    <div class="col text-end"><a href="{{url_for('deletecomment',id=comment.id,pid=comment.pid)}}"><i
+                                class="bi bi-archive-fill" style="color:rgb(208, 74, 74);"></i></a></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="modal fade" id="a{{post.pid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-bg-dark">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel1">Add Comment on Post: {{post.title}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{url_for('addcomment',id=post.pid)}}" method="POST" class="">
+                <div class="modal-body">
+                    <div class="form-floating">
+                        <input name="comment" class="form-control text-bg-dark">
+                        <label for="comment" class="form-label">Your Comment</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info">Add Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

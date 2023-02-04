@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Followers{% endblock %}
+{% block content %}
+<div id="result" class="rounded mx-auto mt-3 text-bg-dark" style="width: 25rem;">
+
+{% for result in user.followers %}
+{% include "result.html" %}
+{% endfor %}
+</div>
+{% endblock %}
+

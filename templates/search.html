@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock %}
+{%block content %}
+<div class="container-fluid">
+    <form method="POST" class="">
+        <div class="row g-1">
+            <div class="col-sm-11">
+                <input id="search" name="search" type="search" class="form-control text-bg-dark"
+                    value="{{request.form['search']}}" placeholder="Search by username">
+            </div>
+            <div class="col">
+                <label for="search"><button class="btn btn-secondary " type="submit">Search</button></label>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="result" class="rounded mx-auto mt-3 text-bg-dark" style="width: 25rem;">
+    {% if request.method == 'POST' %}
+    {% for result in results %}
+    {% include "result.html" %}
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

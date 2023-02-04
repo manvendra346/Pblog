@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% for post in feed|reverse %}
+{% if post.user in user.following %}
+{% include "post_display.html" %}
+{% endif %}
+{% endfor %}
+{% endblock %}

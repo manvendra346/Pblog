@@ -1,0 +1,19 @@
+{% extends 'base_login.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="container-fluid my-auto col-md-4 card text-bg-dark">
+    <form method="POST" class="align-items-center  card-body ">
+        <div class="mb-3 mt-3 form-floating ">
+            <input name="username" id="floatingInput" class="form-control text-bg-dark" type="text"
+                placeholder="Username">
+            <label for="floatingInput" class="form-label">Username</label>
+        </div>
+        <div class="mb-3 form-floating">
+            <input name="password" id="floatingPassword" class="form-control text-bg-dark" type="password"
+                placeholder="Password">
+            <label for="floatingPassword" class="form-label">Password</label>
+        </div>
+        <button type="submit" class="btn btn-info">Login</button>
+    </form>
+</div>
+{%endblock%}

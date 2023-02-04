@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}User Profile{% endblock %}
+{% block content %}
+<div class="container-fluid my-auto col-md-5 card text-bg-dark" style="width: 45rem;">
+    <div class="h2 row mx-auto m-2 mb-4">{{user.username}}</div>
+    <div class="row text-center mb-3">
+        <div class="col">Total Posts:{{ user.posts|length }}</div>
+        <div class="col"><a href="{{ url_for('followers',id=user.id) }}" class="text-decoration-none">followers:{{
+                user.followers|length
+                }}</a></div>
+        <div class="col"><a href="{{ url_for('following',id=user.id) }}" class="text-decoration-none">following:{{
+                user.following|length
+                }}</a></div>
+    </div>
+    <hr>
+    <div class="align-items-center  card-body">
+        <h4>Posts:</h4>
+        {% for post in user.posts %}
+        {% include "post_display.html" %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
